@@ -1,12 +1,12 @@
 using UnityEditor;
 
-[CustomEditor(typeof(TerainGenerator))]
+[CustomEditor(typeof(TerainSettings))]
 public class LiveTerainEditor : Editor
 {
 
     public override void OnInspectorGUI()
     {
-        TerainGenerator generator = (TerainGenerator)target;
+        TerainSettings generator = (TerainSettings)target;
 
         if (DrawDefaultInspector())
         {

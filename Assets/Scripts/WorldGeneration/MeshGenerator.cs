@@ -2,7 +2,7 @@
 
 public static class MeshGenerator
 {
-    public static Mesh GenerateMeshFromHeightMap(float[,] heightMap,int amplitude,int detailLevel){
+    public static (Vector3[], int[]) GenerateMeshFromHeightMap(float[,] heightMap,int amplitude,int detailLevel){
         Vector3[] vertices;
         int[] triangles;
         int meshSize = heightMap.GetLength(1);
@@ -15,7 +15,7 @@ public static class MeshGenerator
             for (int x = 0; x < meshSize; x++)
             {
                 float y;
-                y = heightMap[x, z]*amplitude;
+                y = heightMap[x, z]*amplitude; 
                 vertices[index] = new Vector3(x, y, z);
                 index++;
             }
@@ -24,7 +24,7 @@ public static class MeshGenerator
         detailLevel = (detailLevel == 6) ? 1 : (detailLevel == 5) ? 2:  12 / detailLevel; 
 
 
-        int adjustedDimension = ((meshSize - 1) / detailLevel) + 1;
+        int adjustedDimension = ((meshSize - 1) / detailLevel) +1;
         triangles = new int[adjustedDimension * adjustedDimension * 6];
 
         int vertice = 0; //count up vertices
@@ -48,14 +48,13 @@ public static class MeshGenerator
                 vertice += detailLevel;
                 triangleIndex += 6;
             }
-            vertice = vertice + meshSize * detailLevel - meshSize + 1;
+            //vertice = vertice + meshSize * detailLevel + detailLevel - meshSize;
+            vertice = vertice + meshSize * detailLevel +  - meshSize + 1;
         }
 
-        Mesh m = new Mesh();
-        m.vertices = vertices;
-        m.triangles = triangles;
 
-
-        return m;
+        return (vertices,triangles);
     }
+
+
 }
