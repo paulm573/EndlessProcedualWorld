@@ -6,19 +6,47 @@ public class TerainSettings : MonoBehaviour
 {
     public static TerainSettings Instance;
 
+    [Header("General")]
     [SerializeField]                 public int seed;
+    [SerializeField]                 public Transform worldRoot;
     [SerializeField][Range(1, 20)]   public int chunkSize_;
     [SerializeField][Range(1, 1000)] public int amplitude;
-    [SerializeField][Range(1, 250)]  public float noiseScale;
-    [SerializeField][Range(1, 10)]   public int octaves;
-    [SerializeField][Range(0, 1)]    public float persistance;
-    [SerializeField][Range(1, 5)]    public float lacunarity;
-    [SerializeField][Range(0, 100)]  public int maxViewDistance;
 
+    [Header("Continetalness")]
+    [SerializeField][Range(1, 250)]  public float c_noiseScale;
+    [SerializeField][Range(1, 10)]   public int   c_octaves;
+    [SerializeField][Range(0, 1)]    public float c_persistance;
+    [SerializeField][Range(1, 5)]    public float c_lacunarity;
+
+    [Header("Erosion")]
+    [SerializeField][Range(1, 250)]  public float e_noiseScale;
+    [SerializeField][Range(1, 10)]   public int   e_octaves;
+    [SerializeField][Range(0, 1)]    public float e_persistance;
+    [SerializeField][Range(1, 5)]    public float e_lacunarity;
+
+    [Header("Peaks")]
+    [SerializeField][Range(1, 250)]  public float p_noiseScale;
+    [SerializeField][Range(1, 10)]   public int   p_octaves;
+    [SerializeField][Range(0, 1)]    public float p_persistance;
+    [SerializeField][Range(1, 5)]    public float p_lacunarity;
+
+    [Header("BiomeSettings")]
+    ////////////////////////////////////////////////////
+
+    [Header("LOD-System")]
+    [SerializeField]                 public int maxViewDistance;
+    [SerializeField]                 public int lod_6;
+    [SerializeField]                 public int lod_5;
+    [SerializeField]                 public int lod_4;
+    [SerializeField]                 public int lod_3;
+    [SerializeField]                 public int lod_2;
+    [SerializeField]                 public int lod_1;
+
+    [Header("In-Editor-Preview-Only")]
     [SerializeField][Range(1, 6)] int detailLevel;
     [SerializeField][Range(1, 100)] int chunkCount;
     [SerializeField] int yScrol;
-    [SerializeField] public Transform world;
+    
 
     private void Awake()
     {

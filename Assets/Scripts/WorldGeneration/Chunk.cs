@@ -29,7 +29,7 @@ public class Chunk
         meshRenderer = chunk.AddComponent<MeshRenderer>();
         meshFilter = chunk.AddComponent<MeshFilter>();
 
-        chunk.transform.parent = TerainSettings.Instance.world;
+        chunk.transform.parent = TerainSettings.Instance.worldRoot;
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         meshRenderer.material = TerainSettings.Instance.placeholderMat;

@@ -38,7 +38,7 @@ public class ChunkBuilderSingelton : MonoBehaviour
 
     private ChunkInfo GenerateChunk(int detailLevel,Vector2 position)
     {
-        float[,] heightMap = NoiseGenerator.Generate2DNoiseMap(TerainSettings.Instance.seed, TerainSettings.Instance.chunkSize_*12+1, TerainSettings.Instance.noiseScale, TerainSettings.Instance.octaves, TerainSettings.Instance.persistance, TerainSettings.Instance.lacunarity, position);
+        float[,] heightMap = NoiseGenerator.Generate2DNoiseMap(TerainSettings.Instance.seed, TerainSettings.Instance.chunkSize_*12+1, TerainSettings.Instance.c_noiseScale, TerainSettings.Instance.c_octaves, TerainSettings.Instance.c_persistance, TerainSettings.Instance.c_lacunarity, position);
         (Vector3[], int[]) mesh = MeshGenerator.GenerateMeshFromHeightMap(heightMap,TerainSettings.Instance.amplitude,detailLevel);
         return new ChunkInfo(mesh.Item1,mesh.Item2);
     }
