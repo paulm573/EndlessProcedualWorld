@@ -9,7 +9,7 @@ public class WorldGenerator : MonoBehaviour
     private int chunkSize;
     private Vector2 viewerPosition;
     private int currentChunk_Z, currentChunk_X, old_Z, old_X;
-    private int lod_delete, lod_disable, lod_1, lod_2, lod_3, lod_4, lod_5, lod_6;
+    private int chunkCheckingDistance;
     private static Dictionary<Vector2, Chunk> chunkDictionary = new Dictionary<Vector2, Chunk>();
     
     private void Start()
@@ -18,26 +18,7 @@ public class WorldGenerator : MonoBehaviour
         old_X = int.MaxValue;
         old_Z = int.MaxValue;
 
-        int lodStepsize = TerainSettings.Instance.maxViewDistance / 6;
-        lod_delete  = TerainSettings.Instance.maxViewDistance + lodStepsize*2; 
-        lod_disable = lod_delete  - lodStepsize;
-        lod_1       = lod_disable - lodStepsize;
-        lod_2       = lod_1 - lodStepsize;
-        lod_3       = lod_2 - lodStepsize;
-        lod_4       = lod_3 - lodStepsize;
-        lod_5       = lod_4 - lodStepsize;
-        lod_6       = lod_5 - lodStepsize;
-
-        //Debug.Log(lod_delete);
-        //Debug.Log(lod_disable);
-        //Debug.Log(lod_1);
-        //Debug.Log(lod_2);
-        //Debug.Log(lod_3);
-        //Debug.Log(lod_4);
-        //Debug.Log(lod_5);
-        //Debug.Log(lod_6);
-                
-
+        chunkCheckingDistance = TerainSettings.Instance.lod_delete + 1;
     }
 
     private void Update()
@@ -57,27 +38,38 @@ public class WorldGenerator : MonoBehaviour
 
     private void UpdateVisibleChunks()
     {
-        for (int zOff = -TerainSettings.Instance.maxViewDistance; zOff <= TerainSettings.Instance.maxViewDistance; zOff++)
+        for (int zOff = -chunkCheckingDistance; zOff <= chunkCheckingDistance; zOff++)
         {
-            for (int xOff = -TerainSettings.Instance.maxViewDistance; xOff <= TerainSettings.Instance.maxViewDistance; xOff++)
+            for (int xOff = -chunkCheckingDistance; xOff <= chunkCheckingDistance; xOff++)
             {
                 // 0,0 w Grid Format 0,1 ....
                 Vector2 currentChunkPos = new Vector2(currentChunk_X + xOff, currentChunk_Z + zOff);
                 int detailLevel = CalculateDetailLevel(currentChunkPos, new Vector2(currentChunk_X,currentChunk_Z));
 
-                if (chunkDictionary.ContainsKey(currentChunkPos))
+                // New Entry
+                if (!chunkDictionary.ContainsKey(currentChunkPos))
                 {
-                    if (chunkDictionary[currentChunkPos].IsAlive() == false)
+                    if (detailLevel > -2)
                     {
-                        chunkDictionary[currentChunkPos] = new Chunk(currentChunkPos, detailLevel);
+                        chunkDictionary.Add(currentChunkPos, new Chunk(currentChunkPos, detailLevel));    // Create
                     }
-                    else{ 
-                        chunkDictionary[currentChunkPos].UpdateChunk(detailLevel);
-                    }
+                    continue;
                 }
-                else
+
+                // Key already contained
+                if (detailLevel <= -2)
                 {
-                    chunkDictionary.Add(currentChunkPos, new Chunk(currentChunkPos, detailLevel));
+                    chunkDictionary[currentChunkPos].SelfDestroy();   // Delete
+                    chunkDictionary.Remove(currentChunkPos);
+                }
+                else if (detailLevel <= -1)
+                {
+                    chunkDictionary[currentChunkPos].ToggleActive(false);   // Disable
+                }
+                else 
+                {
+                    chunkDictionary[currentChunkPos].ToggleActive(true);
+                    chunkDictionary[currentChunkPos].UpdateChunk(detailLevel);    // Update
                 }
             }
         }
@@ -87,16 +79,16 @@ public class WorldGenerator : MonoBehaviour
     {
         int detail = (int) (Mathf.Abs(currentChunkPos.x-viewerCoord.x) + Mathf.Abs(viewerCoord.y-currentChunkPos.y));
        
-        if      (detail >  lod_delete) { return -2; } // delete
-        else if (detail <= lod_6) { return 6; }
-        else if (detail <= lod_5) { return 5; }
-        else if (detail <= lod_4) { return 4; }
-        else if (detail <= lod_3) { return 3; }
-        else if (detail <= lod_2) { return 2; }
-        else if (detail <= lod_1) { return 1; }
-        else if (detail <= lod_disable) { return -1; } // disable
-
-        return -2; //cant be reached
+        
+        if      (detail <= TerainSettings.Instance.lod_6) { return 6; }
+        else if (detail <= TerainSettings.Instance.lod_5) { return 5; }
+        else if (detail <= TerainSettings.Instance.lod_4) { return 4; }
+        else if (detail <= TerainSettings.Instance.lod_3) { return 3; }
+        else if (detail <= TerainSettings.Instance.lod_2) { return 2; }
+        else if (detail <= TerainSettings.Instance.lod_1) { return 1; }
+        else if (detail <= TerainSettings.Instance.lod_disable) { return -1; } // disable
+        else if (detail > TerainSettings.Instance.lod_delete) { return -2; } // delete
+        return -1;
     }
 
 }

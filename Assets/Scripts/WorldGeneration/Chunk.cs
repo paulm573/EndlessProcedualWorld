@@ -41,41 +41,18 @@ public class Chunk
 
     public void UpdateChunk(int desiredDetailLevel)
     {
-       
         // check if chunk is already up to date
         if (desiredDetailLevel == currentDetailLevel) { return; } 
 
         currentDetailLevel = desiredDetailLevel;
-        
-
-        // DeleteChunk
-        if (desiredDetailLevel <= -2) {
-            alive = false;
-            SelfDestroy();
-            return;
-        }
-        // DisableChunk
-        if (desiredDetailLevel <= -1) 
-        { 
-            chunk.SetActive(false);
-            return;
-        }
-
-        // RegenerateChunk
-        chunk.SetActive(true);
         ChunkBuilderSingelton.Instance.RequestChunkData(OnDataReceived, pos, desiredDetailLevel);
- 
+
     }
 
     public void SelfDestroy()
     {
         Object.Destroy(chunk.gameObject);
         Object.Destroy(chunk);
-    }
-
-    public bool IsAlive() 
-    {
-        return alive;
     }
 
     private void OnDataReceived(ChunkInfo chunkInfo)
@@ -87,6 +64,10 @@ public class Chunk
      
     }
 
+    public void ToggleActive(bool v)
+    {
+        chunk.SetActive(v);
+    }
 }
 
 

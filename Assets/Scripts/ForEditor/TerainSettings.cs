@@ -34,13 +34,14 @@ public class TerainSettings : MonoBehaviour
     ////////////////////////////////////////////////////
 
     [Header("LOD-System")]
-    [SerializeField]                 public int maxViewDistance;
     [SerializeField]                 public int lod_6;
     [SerializeField]                 public int lod_5;
     [SerializeField]                 public int lod_4;
     [SerializeField]                 public int lod_3;
     [SerializeField]                 public int lod_2;
     [SerializeField]                 public int lod_1;
+    [SerializeField]                 public int lod_disable;
+    [SerializeField]                 public int lod_delete;
 
     [Header("In-Editor-Preview-Only")]
     [SerializeField][Range(1, 6)] int detailLevel;
