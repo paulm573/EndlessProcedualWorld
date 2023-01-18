@@ -87,7 +87,7 @@ public class WorldGenerator : MonoBehaviour
         else if (detail <= TerainSettings.Instance.lod_2) { return 2; }
         else if (detail <= TerainSettings.Instance.lod_1) { return 1; }
         else if (detail <= TerainSettings.Instance.lod_disable) { return -1; } // disable
-        else if (detail > TerainSettings.Instance.lod_delete) { return -2; } // delete
+        else if (detail >  TerainSettings.Instance.lod_delete) { return -2; } // delete
         return -1;
     }
 

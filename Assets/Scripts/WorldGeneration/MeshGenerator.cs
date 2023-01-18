@@ -7,7 +7,7 @@ public static class MeshGenerator
         int[] triangles;
         int meshSize = heightMap.GetLength(1);
 
-        vertices = new Vector3[(meshSize) * (meshSize)];
+        vertices = new Vector3[meshSize * meshSize];
 
      
         for (int z = 0, index = 0; z < meshSize; z++)
@@ -49,7 +49,7 @@ public static class MeshGenerator
                 triangleIndex += 6;
             }
             //vertice = vertice + meshSize * detailLevel + detailLevel - meshSize;
-            vertice = vertice + meshSize * detailLevel +  - meshSize + 1;
+            vertice = vertice + meshSize * detailLevel - meshSize + 1;
         }
 
 

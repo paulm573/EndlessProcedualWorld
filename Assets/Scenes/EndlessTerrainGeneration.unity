@@ -368,7 +368,7 @@ MonoBehaviour:
   lod_3: 4
   lod_2: 0
   lod_1: 10
-  lod_disable: 11
+  lod_disable: 0
   lod_delete: 14
   detailLevel: 3
   chunkCount: 1
@@ -383,8 +383,8 @@ Transform:
   m_GameObject: {fileID: 1171828856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
