@@ -47,6 +47,7 @@ public class TerainSettings : MonoBehaviour
     [SerializeField][Range(1, 6)] int detailLevel;
     [SerializeField][Range(1, 100)] int chunkCount;
     [SerializeField] int yScrol;
+    [SerializeField] bool autoUpdate;
     
 
     private void Awake()
@@ -61,6 +62,8 @@ public class TerainSettings : MonoBehaviour
     // For Generation inside SceneView Only
     private Queue<Chunk> chunks = new Queue<Chunk> {};
     public void Generate(){
+
+        if (!autoUpdate) { return; }
 
         while(chunks.Count > 0)
         {

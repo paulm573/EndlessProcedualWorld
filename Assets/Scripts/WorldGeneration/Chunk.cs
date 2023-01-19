@@ -6,6 +6,7 @@ public class Chunk
     private MeshRenderer meshRenderer;
     private GameObject chunk;
     private MeshFilter meshFilter;
+    private MeshCollider meshCollider;
   
     private Vector2 pos;
     private Vector2 coordinates;
@@ -28,6 +29,7 @@ public class Chunk
 
         meshRenderer = chunk.AddComponent<MeshRenderer>();
         meshFilter = chunk.AddComponent<MeshFilter>();
+        meshCollider = chunk.AddComponent<MeshCollider>();
 
         chunk.transform.parent = TerainSettings.Instance.worldRoot;
 
@@ -61,7 +63,17 @@ public class Chunk
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
         meshFilter.mesh.RecalculateNormals();
-     
+
+        // Colider
+        if (chunkInfo.useColider)
+        {
+            meshCollider.sharedMesh = meshFilter.sharedMesh;
+        }
+        else 
+        {
+            meshCollider.sharedMesh = null;
+        }
+    
     }
 
     public void ToggleActive(bool v)
@@ -75,9 +87,11 @@ public struct ChunkInfo
 {
     public readonly Vector3[] vertices;
     public readonly int[] triangles;
+    public readonly bool useColider;
 
-    public ChunkInfo(Vector3[] verts, int[] tris)
-    {
+    public ChunkInfo(Vector3[] verts, int[] tris, bool colider)
+    {   
+        this.useColider  = colider;
         this.vertices = verts;
         this.triangles = tris;
     }
