@@ -3,11 +3,12 @@ using UnityEngine;
 public class NoiseMapGenerator : MonoBehaviour
 {
     public int seed;
-    [Range(1, 250)] [SerializeField] int mapSize;
-    [Range(1, 250)][SerializeField] float scaleL1;
+    [Range(1, 1000)] [SerializeField] int mapSize;
+    [Range(1, 1000)][SerializeField] float scaleL1;
     [Range(1, 10)]  [SerializeField] int octaves;
     [Range(0, 1)]   [SerializeField] float persistance;
     [Range(1, 10)]  [SerializeField] float lacunarity;
+    [SerializeField] AnimationCurve curve;
     [SerializeField] int xOff;
     [SerializeField] int zOff;
 
@@ -15,7 +16,7 @@ public class NoiseMapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
-        float[,] noiseMap = NoiseGenerator.Generate2DNoiseMap(seed, mapSize, scaleL1, octaves, persistance, lacunarity,new Vector2(xOff,zOff));
+        float[,] noiseMap = NoiseGenerator.Generate2DNoiseMap(seed, mapSize, scaleL1, octaves, persistance, lacunarity, curve.keys,new Vector2(xOff, zOff)) ;
         DrawNoiseMap(noiseMap);
     }
 

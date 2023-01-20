@@ -10,25 +10,34 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]                 public int seed;
     [SerializeField]                 public Transform worldRoot;
     [SerializeField][Range(1, 20)]   public int chunkSize_;
-    [SerializeField][Range(1, 1000)] public int amplitude;
+    
 
     [Header("Continetalness")]
-    [SerializeField][Range(1, 250)]  public float c_noiseScale;
+    [SerializeField]                 public bool c_on;
+    [SerializeField][Range(1, 500)] public int c_amplitude;
+    [SerializeField][Range(1, 500)]  public float c_noiseScale;
     [SerializeField][Range(1, 10)]   public int   c_octaves;
     [SerializeField][Range(0, 1)]    public float c_persistance;
     [SerializeField][Range(1, 5)]    public float c_lacunarity;
+    [SerializeField]                 public AnimationCurve c_curve;
 
     [Header("Erosion")]
+    [SerializeField] public bool e_on;
+    [SerializeField][Range(1, 100)]  public int e_amplitude;
     [SerializeField][Range(1, 250)]  public float e_noiseScale;
     [SerializeField][Range(1, 10)]   public int   e_octaves;
     [SerializeField][Range(0, 1)]    public float e_persistance;
     [SerializeField][Range(1, 5)]    public float e_lacunarity;
+    [SerializeField]                 public AnimationCurve e_curve;
 
     [Header("Peaks")]
+    [SerializeField] public bool p_on;
+    [SerializeField][Range(1, 500)] public int   p_amplitude;
     [SerializeField][Range(1, 250)]  public float p_noiseScale;
     [SerializeField][Range(1, 10)]   public int   p_octaves;
     [SerializeField][Range(0, 1)]    public float p_persistance;
     [SerializeField][Range(1, 5)]    public float p_lacunarity;
+    [SerializeField]                 public AnimationCurve p_curve;
 
     [Header("BiomeSettings")]
     ////////////////////////////////////////////////////

@@ -2,10 +2,11 @@ using UnityEngine;
 
 public static class NoiseGenerator{
     
-    public static float[,] Generate2DNoiseMap(int seed,int size, float scale, int octaves, float persistance, float lacunarity, Vector2 offset){
+    public static float[,] Generate2DNoiseMap(int seed,int size, float scale, int octaves, float persistance, float lacunarity, Keyframe[] splinePoints, Vector2 offset){
        
         float[,] noiseMap = new float[size,size];
-      
+        AnimationCurve __heightCurve = new AnimationCurve(splinePoints);
+
         // SeedingSys
         System.Random rng = new System.Random(seed);
         Vector2[] octavesOffsets = new Vector2[octaves];
@@ -38,7 +39,7 @@ public static class NoiseGenerator{
                     
                 }
 
-                noiseMap[x,z] = noiseHeight;
+                noiseMap[x,z] = __heightCurve.Evaluate(noiseHeight);
             }
         }
         
