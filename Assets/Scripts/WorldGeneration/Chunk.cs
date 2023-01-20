@@ -60,6 +60,7 @@ public class Chunk
         // UpdateMesh
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
+        meshFilter.mesh.colors = chunkInfo.colors;
         meshFilter.mesh.RecalculateNormals();
      
     }
@@ -75,10 +76,12 @@ public struct ChunkInfo
 {
     public readonly Vector3[] vertices;
     public readonly int[] triangles;
+    public readonly Color[] colors;
 
-    public ChunkInfo(Vector3[] verts, int[] tris)
+    public ChunkInfo(Vector3[] verts, int[] tris, Color[] colors)
     {
         this.vertices = verts;
         this.triangles = tris;
+        this.colors = colors;
     }
 }

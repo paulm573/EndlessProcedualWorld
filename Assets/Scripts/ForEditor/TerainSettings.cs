@@ -40,7 +40,10 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]                 public AnimationCurve p_curve;
 
     [Header("BiomeSettings")]
-    ////////////////////////////////////////////////////
+    [SerializeField]                 public int[] heightlevels;
+    [SerializeField]                 public float slopedThreshold;
+    [SerializeField]                 public Color[] colPlains;
+    [SerializeField]                 public Color[] colDesert;
 
     [Header("LOD-System")]
     [SerializeField]                 public int lod_6;

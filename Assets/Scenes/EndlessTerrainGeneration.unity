@@ -347,21 +347,105 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 30
-  worldRoot: {fileID: 1171828860}
+  worldRoot: {fileID: 0}
   chunkSize_: 20
-  amplitude: 136
+  c_on: 1
+  c_amplitude: 144
   c_noiseScale: 139
   c_octaves: 4
   c_persistance: 0.504
   c_lacunarity: 2.06
+  c_curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0018920898
+      value: 0.0023651123
+      inSlope: 0.0035830333
+      outSlope: 0.0035830333
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.45282373
+      value: 0.0039808154
+      inSlope: 0.011165405
+      outSlope: 0.011165405
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.58071685
+      value: 0.1074948
+      inSlope: 1.4776739
+      outSlope: 1.4776739
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.828894
+      value: 0.2664626
+      inSlope: 1.7007842
+      outSlope: 1.7007842
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.25
+      value: 1.25
+      inSlope: 2.3356054
+      outSlope: 2.3356054
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  e_on: 0
+  e_amplitude: 0
   e_noiseScale: 0
   e_octaves: 0
   e_persistance: 0
   e_lacunarity: 0
+  e_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  p_on: 0
+  p_amplitude: 0
   p_noiseScale: 0
   p_octaves: 0
   p_persistance: 0
   p_lacunarity: 0
+  p_curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  heightlevels: 000000000000000000000000000000000000000000000000
+  slopedThreshold: 0
+  colPlains:
+  - {r: 0.9811321, g: 0.018642278, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0, b: 0, a: 0}
+  colDesert: []
   lod_6: 1
   lod_5: 2
   lod_4: 0
