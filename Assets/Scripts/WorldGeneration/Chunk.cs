@@ -6,6 +6,7 @@ public class Chunk
     private MeshRenderer meshRenderer;
     private GameObject chunk;
     private MeshFilter meshFilter;
+    private MeshCollider meshCollider;
   
     private Vector2 pos;
     private Vector2 coordinates;
@@ -28,6 +29,7 @@ public class Chunk
 
         meshRenderer = chunk.AddComponent<MeshRenderer>();
         meshFilter = chunk.AddComponent<MeshFilter>();
+        meshCollider = chunk.AddComponent<MeshCollider>();
 
         chunk.transform.parent = TerainSettings.Instance.worldRoot;
 
@@ -61,6 +63,8 @@ public class Chunk
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
         meshFilter.mesh.colors = chunkInfo.colors;
+        meshCollider.sharedMesh = meshFilter.sharedMesh;
+
         meshFilter.mesh.RecalculateNormals();
      
     }
