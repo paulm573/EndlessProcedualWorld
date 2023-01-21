@@ -10,6 +10,9 @@ public static class MeshPainter
         detailLevel = (detailLevel == 6) ? 1 : (detailLevel == 5) ? 2 : 12 / detailLevel;
 
         int i = 0;
+        double max, min;
+        max = 0.05;
+        min = -max;
         do
         {
             int colorIndex = 0;
@@ -18,12 +21,17 @@ public static class MeshPainter
             {
                 if (vertheight + rng.Next(-20,0) >= useLevels[temp] + shift)
                 {
-                    colorIndex = temp * 2;
+                    colorIndex = temp;
                     break;
                 }
             }
 
-            meshColors[i] = biomeColors[colorIndex];
+            
+             meshColors[i] = new Color(biomeColors[colorIndex].r + (float)(rng.NextDouble()*(max-min)+min), biomeColors[colorIndex].g , biomeColors[colorIndex].b);
+            
+            
+           
+           
             i += detailLevel;
         }
         while (i < vertices.Length);

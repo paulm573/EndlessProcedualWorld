@@ -263,7 +263,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  e_on: 0
+  e_on: 1
   e_amplitude: 55
   e_noiseScale: 250
   e_octaves: 1
@@ -302,7 +302,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  p_on: 0
+  p_on: 1
   p_noiseScale: 217
   p_octaves: 4
   p_persistance: 0.48
@@ -332,20 +332,20 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   levelShift: 0
-  heightlevels: 000000000000000000000000000000000000000000000000
+  heightlevels: 960000006e000000460000001e000000050000009cffffff
   slopedThreshold: 0.3
   colPlains:
   - {r: 0.9622642, g: 0.9395693, b: 0.9395693, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.6698113, g: 0.034754362, b: 0.034754362, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.042573366, g: 0.5754717, b: 0.024430392, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.745283, g: 0.33689144, b: 0.10194911, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.8490566, g: 0.020024916, b: 0.7839347, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   colDesert:
   - {r: 0, g: 0, b: 0, a: 0}

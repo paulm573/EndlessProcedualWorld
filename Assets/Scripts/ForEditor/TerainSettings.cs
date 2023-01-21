@@ -31,7 +31,7 @@ public class TerainSettings : MonoBehaviour
     [Header("Erosion")]
     [SerializeField] public bool e_on;
     [SerializeField][Range(1, 500)]  public int e_amplitude;
-    [SerializeField][Range(1, 250)]  public float e_noiseScale;
+    [SerializeField][Range(1, 500)]  public float e_noiseScale;
     [SerializeField][Range(1, 10)]   public int   e_octaves;
     [SerializeField][Range(0, 1)]    public float e_persistance;
     [SerializeField][Range(1, 5)]    public float e_lacunarity;
@@ -39,7 +39,7 @@ public class TerainSettings : MonoBehaviour
 
     [Header("Peaks")]
     [SerializeField] public bool p_on;
-    [SerializeField][Range(1, 250)]  public float p_noiseScale;
+    [SerializeField][Range(1, 500)]  public float p_noiseScale;
     [SerializeField][Range(1, 10)]   public int   p_octaves;
     [SerializeField][Range(0, 1)]    public float p_persistance;
     [SerializeField][Range(1, 5)]    public float p_lacunarity;
