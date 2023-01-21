@@ -40,7 +40,7 @@ public class ChunkBuilderSingelton : MonoBehaviour
     private ChunkInfo GenerateChunk(int detailLevel,Vector2 position)
     {
         (Vector3[], int[]) mesh = CreateChunkMesh(detailLevel,position);
-        Color[] meshColors = MeshPainter.GenerateMeshColors(mesh.Item1,detailLevel,TerainSettings.Instance.heightlevels,TerainSettings.Instance.colPlains);
+        Color[] meshColors = MeshPainter.GenerateMeshColors(TerainSettings.Instance.seed,mesh.Item1,detailLevel,TerainSettings.Instance.heightlevels,TerainSettings.Instance.levelShift, TerainSettings.Instance.colPlains);
         return new ChunkInfo(mesh.Item1,mesh.Item2,meshColors);
     }
 

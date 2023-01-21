@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 [RequireComponent(typeof(ChunkBuilderSingelton))]
+[System.Serializable]
 public class TerainSettings : MonoBehaviour
 {
+    [SerializeField]
     public static TerainSettings Instance;
+
+    public string loadSave;
 
     [Header("General")]
     [SerializeField]                 public int seed;
@@ -14,8 +21,8 @@ public class TerainSettings : MonoBehaviour
 
     [Header("Continetalness")]
     [SerializeField]                 public bool c_on;
-    [SerializeField][Range(1, 500)] public int c_amplitude;
-    [SerializeField][Range(1, 500)]  public float c_noiseScale;
+    [SerializeField][Range(1, 1000)] public int c_amplitude;
+    [SerializeField][Range(1, 2000)]  public float c_noiseScale;
     [SerializeField][Range(1, 10)]   public int   c_octaves;
     [SerializeField][Range(0, 1)]    public float c_persistance;
     [SerializeField][Range(1, 5)]    public float c_lacunarity;
@@ -23,7 +30,7 @@ public class TerainSettings : MonoBehaviour
 
     [Header("Erosion")]
     [SerializeField] public bool e_on;
-    [SerializeField][Range(1, 100)]  public int e_amplitude;
+    [SerializeField][Range(1, 500)]  public int e_amplitude;
     [SerializeField][Range(1, 250)]  public float e_noiseScale;
     [SerializeField][Range(1, 10)]   public int   e_octaves;
     [SerializeField][Range(0, 1)]    public float e_persistance;
@@ -32,7 +39,6 @@ public class TerainSettings : MonoBehaviour
 
     [Header("Peaks")]
     [SerializeField] public bool p_on;
-    [SerializeField][Range(1, 500)] public int   p_amplitude;
     [SerializeField][Range(1, 250)]  public float p_noiseScale;
     [SerializeField][Range(1, 10)]   public int   p_octaves;
     [SerializeField][Range(0, 1)]    public float p_persistance;
@@ -40,6 +46,7 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]                 public AnimationCurve p_curve;
 
     [Header("BiomeSettings")]
+    [SerializeField]                 public int levelShift;
     [SerializeField]                 public int[] heightlevels;
     [SerializeField]                 public float slopedThreshold;
     [SerializeField]                 public Color[] colPlains;
@@ -93,5 +100,29 @@ public class TerainSettings : MonoBehaviour
             }
         }
        
+    }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public void Save() { 
+
+        BinaryFormatter formatter= new BinaryFormatter();
+        string path = "Assets/WorldPresets/" + loadSave + ".world";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        formatter.Serialize(stream, Instance);
+        stream.Close();
+
+
+    }
+
+    public void Load() {
+        string path = "Assets/WorldPresets/" + loadSave;
+        if(File.Exists(path))
+        {
+            BinaryFormatter formatter= new BinaryFormatter();
+            FileStream fileStream = new FileStream(path,FileMode.Open);
+
+            Instance = formatter.Deserialize(fileStream) as TerainSettings;
+            fileStream.Close();
+        }
     }
 }
