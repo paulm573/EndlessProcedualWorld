@@ -46,11 +46,9 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]                 public AnimationCurve p_curve;
 
     [Header("BiomeSettings")]
-    [SerializeField]                 public int levelShift;
-    [SerializeField]                 public int[] heightlevels;
-    [SerializeField]                 public float slopedThreshold;
-    [SerializeField]                 public Color[] colPlains;
-    [SerializeField]                 public Color[] colDesert;
+    [SerializeField]                 public int estimatedMinHeight;
+    [SerializeField]                 public int estimatedMaxHeight;
+    [SerializeField]                 public Biome[] biomes;
 
     [Header("LOD-System")]
     [SerializeField]                 public int lod_6;
@@ -66,22 +64,51 @@ public class TerainSettings : MonoBehaviour
     [SerializeField][Range(1, 6)] int detailLevel;
     [SerializeField][Range(1, 100)] int chunkCount;
     [SerializeField] int yScrol;
+ 
+    
     
 
     private void Awake()
     {
         Instance = this;
+        foreach (Biome biome in biomes)
+        {
+            biome.UpdateTextures();
+        }
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public Material placeholderMat;
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // For Generation inside SceneView Only
     private Queue<Chunk> chunks = new Queue<Chunk> {};
     public void Generate(){
 
-        while(chunks.Count > 0)
+        foreach (Biome biome in biomes)
+        {
+            biome.UpdateTextures();
+        }
+
+        while (chunks.Count > 0)
         {
             Chunk chunk = chunks.Dequeue();
             chunk.SelfDestroy();

@@ -9,17 +9,17 @@ public class Chunk
     private MeshCollider meshCollider;
   
     private Vector2 pos;
-    private Vector2 coordinates;
  
     private int currentDetailLevel;
+    private bool biomeUnaplyed;
 
-    private bool alive;
+ 
     public Chunk(Vector2 coordinates,int initialDetailLevel)
     {   
         currentDetailLevel= -100;
-        alive = true;
+        biomeUnaplyed = true;
 
-        this.coordinates = coordinates;
+
         pos = coordinates * (TerainSettings.Instance.chunkSize_*12);
         // Offset so player is centered
         pos.x -= TerainSettings.Instance.chunkSize_ * 6;
@@ -33,9 +33,7 @@ public class Chunk
 
         chunk.transform.parent = TerainSettings.Instance.worldRoot;
 
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        meshRenderer.material = TerainSettings.Instance.placeholderMat;
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
 
         UpdateChunk(initialDetailLevel);
 
@@ -59,10 +57,15 @@ public class Chunk
 
     private void OnDataReceived(ChunkInfo chunkInfo)
     {
+        // UpdateBiome
+        if (biomeUnaplyed) {
+            meshRenderer.material = TerainSettings.Instance.biomes[chunkInfo.biomeID].getBiomeMaterial();
+            biomeUnaplyed = false;
+        }
         // UpdateMesh
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
-        meshFilter.mesh.colors = chunkInfo.colors;
+        
         if (currentDetailLevel >= 5)
         {
             meshCollider.sharedMesh = meshFilter.sharedMesh;
@@ -70,11 +73,8 @@ public class Chunk
         else {
             meshCollider.sharedMesh = null;
         }
-        
 
-        meshFilter.mesh.RecalculateNormals();
-        meshFilter.mesh.RecalculateTangents();
-     
+        meshFilter.mesh.RecalculateNormals();  
     }
 
     public void ToggleActive(bool v)
@@ -88,12 +88,14 @@ public struct ChunkInfo
 {
     public readonly Vector3[] vertices;
     public readonly int[] triangles;
-    public readonly Color[] colors;
+    public readonly int biomeID;
+    
 
-    public ChunkInfo(Vector3[] verts, int[] tris, Color[] colors)
-    {
+    public ChunkInfo(Vector3[] verts, int[] tris,int biomeID)
+    {   
+        this.biomeID = biomeID;
         this.vertices = verts;
         this.triangles = tris;
-        this.colors = colors;
+
     }
 }

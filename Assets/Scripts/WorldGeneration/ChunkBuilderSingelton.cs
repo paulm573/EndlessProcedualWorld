@@ -40,11 +40,15 @@ public class ChunkBuilderSingelton : MonoBehaviour
     private ChunkInfo GenerateChunk(int detailLevel,Vector2 position)
     {
         (Vector3[], int[]) mesh = CreateChunkMesh(detailLevel,position);
-        Color[] meshColors = MeshPainter.GenerateMeshColors(TerainSettings.Instance.seed,mesh.Item1,detailLevel,TerainSettings.Instance.heightlevels,TerainSettings.Instance.levelShift, TerainSettings.Instance.colPlains);
-        return new ChunkInfo(mesh.Item1,mesh.Item2,meshColors);
+        int biomeID = CalculateBiome();
+        
+        return new ChunkInfo(mesh.Item1,mesh.Item2,biomeID);
     }
-
-
+    ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private int CalculateBiome() {
+        return 0;
+    }
+    ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     private (Vector3[], int[]) CreateChunkMesh(int detailLevel, Vector2 position)
     {
         int size = TerainSettings.Instance.chunkSize_ * 12 + 1;
