@@ -63,7 +63,14 @@ public class Chunk
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
         meshFilter.mesh.colors = chunkInfo.colors;
-        meshCollider.sharedMesh = meshFilter.sharedMesh;
+        if (currentDetailLevel >= 5)
+        {
+            meshCollider.sharedMesh = meshFilter.sharedMesh;
+        }
+        else {
+            meshCollider.sharedMesh = null;
+        }
+        
 
         meshFilter.mesh.RecalculateNormals();
         meshFilter.mesh.RecalculateTangents();
