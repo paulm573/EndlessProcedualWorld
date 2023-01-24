@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.5176471, g: 0.48235294, b: 0.48235294, a: 1}
+  m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.0016
   m_LinearFogStart: 0
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 0.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e592808314ef8cd48b18090a8ed9899b, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17873004, g: 0.21793355, b: 0.2719603, a: 1}
+  m_IndirectSpecularColor: {r: 0.349393, g: 0.5011156, b: 0.7257722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -574,7 +574,7 @@ MonoBehaviour:
   worldRoot: {fileID: 1171828860}
   chunkSize_: 20
   c_on: 1
-  c_amplitude: 150
+  c_amplitude: 174
   c_noiseScale: 1120
   c_octaves: 2
   c_persistance: 0.54
@@ -707,47 +707,21 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  levelShift: -30
-  heightlevels: 90010000fa000000a00000008c000000780000006e000000640000005a00000050000000460000001e0000009cffffff
-  slopedThreshold: 0.5
-  colPlains:
-  - {r: 0.9622642, g: 0.92223036, b: 0.92141336, a: 0}
-  - {r: 0.7924528, g: 0.7662869, b: 0.7662869, a: 0}
-  - {r: 0.3962264, g: 0.37566748, b: 0.37566748, a: 0}
-  - {r: 0.23584908, g: 0.22806162, b: 0.22806162, a: 0}
-  - {r: 0.41509432, g: 0.2995728, b: 0.2995728, a: 0}
-  - {r: 0.24528301, g: 0.123798504, b: 0.123798504, a: 0}
-  - {r: 0.21551263, g: 0.2735849, b: 0.21639799, a: 0}
-  - {r: 0.06074226, g: 0.1981132, b: 0.08788458, a: 0}
-  - {r: 0.065222695, g: 0.3679245, b: 0.008677464, a: 0}
-  - {r: 0.31176502, g: 0.46226418, b: 0.20714669, a: 0}
-  - {r: 0.16528283, g: 0.5377358, b: 0.03804734, a: 0}
-  - {r: 1, g: 0.8429814, b: 0.36320752, a: 0}
-  colDesert:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  estimatedMinHeight: 0
+  estimatedMaxHeight: 0
+  biomes:
+  - {fileID: 11400000, guid: 2d526f963b02e264d80c6c7479c88311, type: 2}
   lod_6: 2
   lod_5: 3
   lod_4: -1
   lod_3: 5
   lod_2: -1
   lod_1: 7
-  lod_disable: 10
-  lod_delete: 11
+  lod_disable: -1
+  lod_delete: 8
   detailLevel: 3
   chunkCount: 50
   yScrol: 0
-  placeholderMat: {fileID: 2100000, guid: 6a55113c2c3a75049bc4ab5eb51643e9, type: 2}
 --- !u!4 &1171828860
 Transform:
   m_ObjectHideFlags: 0
@@ -1354,7 +1328,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.8207547, g: 0.4856563, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.9707025, b: 0.5330188, a: 1}
   m_Intensity: 1.27
   m_Range: 10
   m_SpotAngle: 30
