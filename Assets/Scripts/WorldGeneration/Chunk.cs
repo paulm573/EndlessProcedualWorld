@@ -66,6 +66,7 @@ public class Chunk
         meshCollider.sharedMesh = meshFilter.sharedMesh;
 
         meshFilter.mesh.RecalculateNormals();
+        meshFilter.mesh.RecalculateTangents();
      
     }
 
