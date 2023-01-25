@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public static class MeshGenerator
 {
@@ -9,22 +10,23 @@ public static class MeshGenerator
 
         vertices = new Vector3[meshSize * meshSize];
 
-     
+
         for (int z = 0, index = 0; z < meshSize; z++)
         {
             for (int x = 0; x < meshSize; x++)
             {
                 float y;
-                y = heightMap[x, z]; 
+                y = heightMap[x, z];
                 vertices[index] = new Vector3(x, y, z);
                 index++;
             }
         }
 
-        detailLevel = (detailLevel == 6) ? 1 : (detailLevel == 5) ? 2:  12 / detailLevel; 
+        detailLevel = (detailLevel == 6) ? 1 : (detailLevel == 5) ? 2 : 12 / detailLevel;
 
 
-        int adjustedDimension = ((meshSize - 1) / detailLevel) +1;
+        int adjustedDimension = ((meshSize - 1) / detailLevel) + 1;
+        //triangles = new int[adjustedDimension * adjustedDimension * 6];
         triangles = new int[adjustedDimension * adjustedDimension * 6];
 
         int vertice = 0; //count up vertices
@@ -52,8 +54,16 @@ public static class MeshGenerator
             vertice = vertice + meshSize * detailLevel - meshSize + 1;
         }
 
+        Vector3[] vertFlat = new Vector3[triangles.Length];
+        for (int i = 0; i < triangles.Length; i++)
+        {
+            vertFlat[i] = vertices[triangles[i]];
+            triangles[i] = i;
+        }
 
-        return (vertices,triangles);
+        return (vertFlat, triangles);
+
+
     }
 
 

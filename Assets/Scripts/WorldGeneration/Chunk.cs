@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class Chunk
 {
@@ -9,17 +11,17 @@ public class Chunk
     private MeshCollider meshCollider;
   
     private Vector2 pos;
-    private Vector2 coordinates;
+  
  
     private int currentDetailLevel;
 
-    private bool alive;
+    
     public Chunk(Vector2 coordinates,int initialDetailLevel)
     {   
         currentDetailLevel= -100;
-        alive = true;
+     
 
-        this.coordinates = coordinates;
+       
         pos = coordinates * (TerainSettings.Instance.chunkSize_*12);
         // Offset so player is centered
         pos.x -= TerainSettings.Instance.chunkSize_ * 6;
@@ -48,10 +50,11 @@ public class Chunk
 
         currentDetailLevel = desiredDetailLevel;
         ChunkBuilderSingelton.Instance.RequestChunkData(OnDataReceived, pos, desiredDetailLevel);
+       
 
     }
 
-    public void SelfDestroy()
+    public void Destroy()
     {
         Object.Destroy(chunk.gameObject);
         Object.Destroy(chunk);
@@ -59,11 +62,18 @@ public class Chunk
 
     private void OnDataReceived(ChunkInfo chunkInfo)
     {
+
+
         // UpdateMesh
+        Debug.Log(chunk.name);
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
         meshFilter.mesh.colors = chunkInfo.colors;
-        meshCollider.sharedMesh = meshFilter.sharedMesh;
+        // Colider
+        if (currentDetailLevel == 6) { meshCollider.sharedMesh = meshFilter.sharedMesh; } else { meshCollider.sharedMesh = null; }
+            
+                
+        
 
         meshFilter.mesh.RecalculateNormals();
         meshFilter.mesh.RecalculateTangents();
@@ -74,6 +84,8 @@ public class Chunk
     {
         chunk.SetActive(v);
     }
+
+
 }
 
 

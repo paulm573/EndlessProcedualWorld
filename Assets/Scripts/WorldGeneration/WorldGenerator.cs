@@ -59,7 +59,7 @@ public class WorldGenerator : MonoBehaviour
                 // Key already contained
                 if (detailLevel <= -2)
                 {
-                    chunkDictionary[currentChunkPos].SelfDestroy();   // Delete
+                    chunkDictionary[currentChunkPos].Destroy();   // Delete
                     chunkDictionary.Remove(currentChunkPos);
                 }
                 else if (detailLevel <= -1)

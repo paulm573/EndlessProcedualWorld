@@ -7,11 +7,14 @@ public static class MeshPainter
         Color[] meshColors = new Color[vertices.Length];
         System.Random rng = new System.Random(seed);
 
-        detailLevel = (detailLevel == 6) ? 1 : (detailLevel == 5) ? 2 : 12 / detailLevel;
+        ///detailLevel = (detailLevel == 6) ? 1 : (detailLevel == 5) ? 2 : 12 / detailLevel;
+        // For Flatshading:
+        detailLevel = 1;
+
 
         int i = 0;
         double max, min;
-        max = 0.05;
+        max = 0.1;
         min = -max;
         do
         {
@@ -19,19 +22,19 @@ public static class MeshPainter
             float vertheight = vertices[i].y;
             for (int temp = 0; temp < useLevels.Length; temp++)
             {
-                if (vertheight + rng.Next(-20,0) >= useLevels[temp] + shift)
+                if (vertheight + rng.Next(-7, 0) >= useLevels[temp] + shift)
                 {
                     colorIndex = temp;
                     break;
                 }
             }
 
-            
-             meshColors[i] = new Color(biomeColors[colorIndex].r + (float)(rng.NextDouble()*(max-min)+min), biomeColors[colorIndex].g , biomeColors[colorIndex].b);
-            
-            
-           
-           
+
+            meshColors[i] = new Color(biomeColors[colorIndex].r + (float)(rng.NextDouble() * (max - min) + min), biomeColors[colorIndex].g, biomeColors[colorIndex].b);
+
+
+
+
             i += detailLevel;
         }
         while (i < vertices.Length);

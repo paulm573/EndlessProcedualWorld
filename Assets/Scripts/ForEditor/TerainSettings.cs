@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 [RequireComponent(typeof(ChunkBuilderSingelton))]
 [System.Serializable]
@@ -84,7 +85,7 @@ public class TerainSettings : MonoBehaviour
         while(chunks.Count > 0)
         {
             Chunk chunk = chunks.Dequeue();
-            chunk.SelfDestroy();
+            chunk.Destroy();
         }
 
         // Convert Values 
@@ -99,7 +100,6 @@ public class TerainSettings : MonoBehaviour
                 chunks.Enqueue(new Chunk(new Vector2(x, z),detailLevel));
             }
         }
-       
     }
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void Save() { 
@@ -125,4 +125,5 @@ public class TerainSettings : MonoBehaviour
             fileStream.Close();
         }
     }
+
 }

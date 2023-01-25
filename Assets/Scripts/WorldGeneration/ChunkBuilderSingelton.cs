@@ -12,6 +12,10 @@ public class ChunkBuilderSingelton : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        int a, b;
+        ThreadPool.GetAvailableThreads(out a, out b);
+        Debug.Log($"a{a},b{b}");
+        ThreadPool.SetMaxThreads(6, 6);
     }
     private void Update()
     {   
@@ -26,8 +30,9 @@ public class ChunkBuilderSingelton : MonoBehaviour
 
     public void RequestChunkData(Action<ChunkInfo> callback, Vector2 position, int detailLevel)
     {
-        ThreadStart threadStart = delegate { ChunkBuilderDataThread(callback, position, detailLevel); };
-        new Thread(threadStart).Start();
+        //ThreadStart threadStart = delegate { ChunkBuilderDataThread(callback, position, detailLevel); };
+        //new Thread(threadStart).Start();
+        ThreadPool.QueueUserWorkItem(delegate { ChunkBuilderDataThread(callback, position, detailLevel); });
     }
 
     private void ChunkBuilderDataThread(Action<ChunkInfo> callback, Vector2 pos, int detailLevel)

@@ -187,7 +187,7 @@ MonoBehaviour:
   loadSave: 
   seed: 42
   worldRoot: {fileID: 808673629}
-  chunkSize_: 20
+  chunkSize_: 6
   c_on: 1
   c_amplitude: 150
   c_noiseScale: 1120
@@ -368,8 +368,8 @@ MonoBehaviour:
   lod_1: 0
   lod_disable: 0
   lod_delete: 0
-  detailLevel: 4
-  chunkCount: 57
+  detailLevel: 6
+  chunkCount: 1
   yScrol: 0
   placeholderMat: {fileID: 2100000, guid: 6a55113c2c3a75049bc4ab5eb51643e9, type: 2}
 --- !u!4 &1171828860
