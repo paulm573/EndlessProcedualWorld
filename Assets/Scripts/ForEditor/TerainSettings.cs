@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 
 [RequireComponent(typeof(ChunkBuilderSingelton))]
 [System.Serializable]
@@ -12,7 +9,6 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]
     public static TerainSettings Instance;
 
-    public string loadSave;
 
     [Header("General")]
     [SerializeField]                 public int seed;
@@ -102,28 +98,6 @@ public class TerainSettings : MonoBehaviour
         }
     }
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    public void Save() { 
 
-        BinaryFormatter formatter= new BinaryFormatter();
-        string path = "Assets/WorldPresets/" + loadSave + ".world";
-        FileStream stream = new FileStream(path, FileMode.Create);
-
-        formatter.Serialize(stream, Instance);
-        stream.Close();
-
-
-    }
-
-    public void Load() {
-        string path = "Assets/WorldPresets/" + loadSave;
-        if(File.Exists(path))
-        {
-            BinaryFormatter formatter= new BinaryFormatter();
-            FileStream fileStream = new FileStream(path,FileMode.Open);
-
-            Instance = formatter.Deserialize(fileStream) as TerainSettings;
-            fileStream.Close();
-        }
-    }
 
 }

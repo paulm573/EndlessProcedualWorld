@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
+
 
 public class Chunk
 {
@@ -11,6 +11,7 @@ public class Chunk
     private MeshCollider meshCollider;
   
     private Vector2 pos;
+    private bool isDead = false;
   
  
     private int currentDetailLevel;
@@ -46,7 +47,7 @@ public class Chunk
     public void UpdateChunk(int desiredDetailLevel)
     {
         // check if chunk is already up to date
-        if (desiredDetailLevel == currentDetailLevel) { return; } 
+        if (desiredDetailLevel ==currentDetailLevel) { return; } 
 
         currentDetailLevel = desiredDetailLevel;
         ChunkBuilderSingelton.Instance.RequestChunkData(OnDataReceived, pos, desiredDetailLevel);
@@ -56,18 +57,20 @@ public class Chunk
 
     public void Destroy()
     {
+        isDead = true;
         Object.Destroy(chunk.gameObject);
         Object.Destroy(chunk);
     }
 
     private void OnDataReceived(ChunkInfo chunkInfo)
     {
-
+        if(isDead) return;
 
         // UpdateMesh
-        Debug.Log(chunk.name);
+        meshFilter.mesh = new Mesh();
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
+
         meshFilter.mesh.colors = chunkInfo.colors;
         // Colider
         if (currentDetailLevel == 6) { meshCollider.sharedMesh = meshFilter.sharedMesh; } else { meshCollider.sharedMesh = null; }
@@ -75,8 +78,8 @@ public class Chunk
                 
         
 
-        meshFilter.mesh.RecalculateNormals();
-        meshFilter.mesh.RecalculateTangents();
+        //meshFilter.mesh.RecalculateNormals();
+        //meshFilter.mesh.RecalculateTangents();
      
     }
 

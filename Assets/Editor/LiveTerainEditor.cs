@@ -16,14 +16,7 @@ public class LiveTerainEditor : Editor
             { 
                 generator.Generate();
             }
-        if (GUILayout.Button("Load"))
-        {
-            generator.Load();
-        }
-        if (GUILayout.Button("Save"))
-        {
-            generator.Save();
-        }
+
 
         DrawDefaultInspector();
 

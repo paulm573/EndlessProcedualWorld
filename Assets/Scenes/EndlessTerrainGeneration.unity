@@ -357,10 +357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97c462bc0389cf4e893da10676a12ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadSave: 
   seed: 243
   worldRoot: {fileID: 1171828860}
-  chunkSize_: 8
+  chunkSize_: 7
   c_on: 1
   c_amplitude: 150
   c_noiseScale: 1120
@@ -524,11 +523,11 @@ MonoBehaviour:
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
   - {r: 0, g: 0, b: 0, a: 0}
-  lod_6: 1
-  lod_5: 2
-  lod_4: 3
-  lod_3: 5
-  lod_2: 7
+  lod_6: 2
+  lod_5: 5
+  lod_4: 6
+  lod_3: 7
+  lod_2: 10
   lod_1: 14
   lod_disable: -1
   lod_delete: 15
