@@ -9,6 +9,10 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]
     public static TerainSettings Instance;
 
+    [Header("In-Editor-Preview-Only")]
+    [SerializeField][Range(1, 6)] int detailLevel;
+    [SerializeField][Range(1, 100)] int chunkCount;
+    [SerializeField] int yScrol;
 
     [Header("General")]
     [SerializeField]                 public int seed;
@@ -26,28 +30,25 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]                 public AnimationCurve c_curve;
 
     [Header("Erosion")]
-    [SerializeField] public bool e_on;
+    [SerializeField]                 public bool e_on;
     [SerializeField][Range(1, 500)]  public int e_amplitude;
-    [SerializeField][Range(1, 500)]  public float e_noiseScale;
+    [SerializeField][Range(1, 3000)]  public float e_noiseScale;
     [SerializeField][Range(1, 10)]   public int   e_octaves;
     [SerializeField][Range(0, 1)]    public float e_persistance;
     [SerializeField][Range(1, 5)]    public float e_lacunarity;
     [SerializeField]                 public AnimationCurve e_curve;
 
     [Header("Peaks")]
-    [SerializeField] public bool p_on;
-    [SerializeField][Range(1, 500)]  public float p_noiseScale;
+    [SerializeField]                 public bool p_on;
+    [SerializeField][Range(1, 500)]  public int p_amplitude;
+    [SerializeField][Range(1, 1500)]  public float p_noiseScale;
     [SerializeField][Range(1, 10)]   public int   p_octaves;
     [SerializeField][Range(0, 1)]    public float p_persistance;
     [SerializeField][Range(1, 5)]    public float p_lacunarity;
     [SerializeField]                 public AnimationCurve p_curve;
 
     [Header("BiomeSettings")]
-    [SerializeField]                 public int levelShift;
-    [SerializeField]                 public int[] heightlevels;
-    [SerializeField]                 public float slopedThreshold;
-    [SerializeField]                 public Color[] colPlains;
-    [SerializeField]                 public Color[] colDesert;
+    [SerializeField]                 public BiomeStruct[] useBiomes;
 
     [Header("LOD-System")]
     [SerializeField]                 public int lod_6;
@@ -59,15 +60,10 @@ public class TerainSettings : MonoBehaviour
     [SerializeField]                 public int lod_disable;
     [SerializeField]                 public int lod_delete;
 
-    [Header("In-Editor-Preview-Only")]
-    [SerializeField][Range(1, 6)] int detailLevel;
-    [SerializeField][Range(1, 100)] int chunkCount;
-    [SerializeField] int yScrol;
-    
-
     private void Awake()
     {
         Instance = this;
+        seed = Random.Range(0, 123213);
     }
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

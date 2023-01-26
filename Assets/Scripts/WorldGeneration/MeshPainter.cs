@@ -2,7 +2,7 @@
 
 public static class MeshPainter
 {
-    public static Color[] GenerateMeshColors(int seed,Vector3[] vertices, int detailLevel, int[] useLevels,int shift, Color[] biomeColors)
+    public static Color[] GenerateMeshColors(int seed,Vector3[] vertices, int detailLevel, int[] useLevels,int blend, Color[] biomeColors,float variation)
     {
         Color[] meshColors = new Color[vertices.Length];
         System.Random rng = new System.Random(seed);
@@ -14,7 +14,7 @@ public static class MeshPainter
 
         int i = 0;
         double max, min;
-        max = 0.1;
+        max = variation;
         min = -max;
         do
         {
@@ -22,15 +22,15 @@ public static class MeshPainter
             float vertheight = vertices[i].y;
             for (int temp = 0; temp < useLevels.Length; temp++)
             {
-                if (vertheight + rng.Next(-7, 0) >= useLevels[temp] + shift)
+                if (vertheight + rng.Next(-blend, 0) >= useLevels[temp])
                 {
                     colorIndex = temp;
                     break;
                 }
             }
 
-
-            meshColors[i] = new Color(biomeColors[colorIndex].r + (float)(rng.NextDouble() * (max - min) + min), biomeColors[colorIndex].g, biomeColors[colorIndex].b);
+            float[] off = { (float)(rng.NextDouble() * (max - min) + min), (float)(rng.NextDouble() * (max - min) + min), (float)(rng.NextDouble() * (max - min) + min) };
+            meshColors[i] = new Color(biomeColors[colorIndex].r + off[0], biomeColors[colorIndex].g + off[0], biomeColors[colorIndex].b + off[0]);
 
 
 

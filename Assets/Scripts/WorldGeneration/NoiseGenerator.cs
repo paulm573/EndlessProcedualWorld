@@ -14,6 +14,9 @@ public static class NoiseGenerator{
             octavesOffsets[i] = new Vector2(rng.Next(-100000,100000)+offset.x,rng.Next(-100000,100000)+offset.y);
         }
 
+        //
+        //float highest = -1f;
+        //
         // Guard 0 division
         if(scale <= 0){scale = 0.00001f;}
 
@@ -39,11 +42,14 @@ public static class NoiseGenerator{
                     
                 }
 
+                //if (noiseMap[x, z] > highest) { highest = noiseHeight; }
+                
                 noiseMap[x,z] = __heightCurve.Evaluate(noiseHeight);
+               
             }
         }
-        
 
+        //Debug.Log(highest);
         return noiseMap;
     }
 }

@@ -50,7 +50,9 @@ public class ChunkBuilderSingelton : MonoBehaviour
     private ChunkInfo GenerateChunk(int detailLevel,Vector2 position)
     {   
         (Vector3[], int[]) mesh = CreateChunkMesh(detailLevel,position);
-        Color[] meshColors = MeshPainter.GenerateMeshColors(TerainSettings.Instance.seed,mesh.Item1,detailLevel,TerainSettings.Instance.heightlevels,TerainSettings.Instance.levelShift, TerainSettings.Instance.colPlains);
+        int f = 0;
+        BiomeStruct biome = TerainSettings.Instance.useBiomes[f];
+        Color[] meshColors = MeshPainter.GenerateMeshColors(TerainSettings.Instance.seed,mesh.Item1,detailLevel, biome.heightlevels, biome.blendStrengths, biome.colors, biome.colorVariation);
         return new ChunkInfo(mesh.Item1,mesh.Item2,meshColors);
     }
 
@@ -59,19 +61,22 @@ public class ChunkBuilderSingelton : MonoBehaviour
     {
         string heightMapId = $"{position.y}_{position.x}";
         bool access;
-        lock (heightBuffer) { 
+        lock (heightBuffer)
+        {
             access = heightBuffer.ContainsKey(position);
-            if (heightBuffer.Count >= maxCachedChunks) { 
+            if (heightBuffer.Count >= maxCachedChunks)
+            {
                 heightBuffer.Clear();
                 Debug.Log(heightBuffer.Count);
-            } 
+            }
         }
 
 
-        if (access){
+        if (access)
+        {
             return MeshGenerator.GenerateMeshFromHeightMap(heightBuffer[position], detailLevel);
         }
-        
+
         int size = TerainSettings.Instance.chunkSize_ * 12 + 1;
 
         // Continetalness
@@ -97,14 +102,15 @@ public class ChunkBuilderSingelton : MonoBehaviour
                 if (!TerainSettings.Instance.e_on) { erosionMap[x, z] = 1f; }
                 if (!TerainSettings.Instance.p_on) { peaksAndValleys[x, z] = 1; }
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                heightMap[x, z] = ((peaksAndValleys[x, z] * continental[x, z]) * TerainSettings.Instance.c_amplitude) + erosionMap[x,z] * TerainSettings.Instance.e_amplitude;
+                //heightMap[x, z] = ((peaksAndValleys[x, z] * continental[x, z]) * TerainSettings.Instance.c_amplitude) + erosionMap[x,z] * TerainSettings.Instance.e_amplitude;
+                heightMap[x, z] = (TerainSettings.Instance.c_amplitude * continental[x,z] + peaksAndValleys[x,z] * TerainSettings.Instance.p_amplitude) * erosionMap[x, z] ;
             }
         }
 
         // cache heightMap
         lock (heightBuffer) { heightBuffer.Add(position, heightMap); }
-        
-        
+
+
 
         return MeshGenerator.GenerateMeshFromHeightMap(heightMap, detailLevel);
     }

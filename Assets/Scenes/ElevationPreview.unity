@@ -184,7 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a97c462bc0389cf4e893da10676a12ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadSave: 
+  detailLevel: 6
+  chunkCount: 15
+  yScrol: 0
   seed: 42
   worldRoot: {fileID: 808673629}
   chunkSize_: 6
@@ -198,17 +200,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0.0018920898
-      value: 0.0023651123
-      inSlope: -0.0072970022
-      outSlope: -0.0072970022
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.549936
-      value: -0.0016339652
+      time: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 136
@@ -216,49 +209,76 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1.001846
-      value: 0.9979764
-      inSlope: 1.2076647
-      outSlope: 1.2076647
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.058672
-      value: 1.340506
-      inSlope: 0.6143997
-      outSlope: 0.6143997
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.13609602
-    - serializedVersion: 3
-      time: 1.1498328
-      value: 1.4470166
-      inSlope: 0.932135
-      outSlope: 0.932135
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.1706722
-      value: 1.55342
-      inSlope: 1.3970113
-      outSlope: 1.3970113
+      time: 0.09807949
+      value: 0.027490139
+      inSlope: -0.054053146
+      outSlope: -0.054053146
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1.4544928
-      value: 2.3331046
-      inSlope: 2.6497903
-      outSlope: 2.6497903
-      tangentMode: 0
+      time: 0.29875386
+      value: 0.023452975
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
       weightedMode: 0
-      inWeight: 0.4386355
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3516487
+      value: 0.4713988
+      inSlope: 0.011778647
+      outSlope: 0.011778647
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.45163193
+      value: 0.47184896
+      inSlope: 0.015797446
+      outSlope: 0.015797446
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4656327
+      value: 0.9042707
+      inSlope: 0.5292182
+      outSlope: 0.5292182
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5346129
+      value: 0.91524947
+      inSlope: 0.21150395
+      outSlope: 0.21150395
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6732649
+      value: 0.99684
+      inSlope: 0.05280409
+      outSlope: 0.05280409
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9992674
+      value: 1.0029739
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -302,11 +322,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  p_on: 1
-  p_noiseScale: 217
-  p_octaves: 4
-  p_persistance: 0.48
-  p_lacunarity: 2.1
+  p_on: 0
+  p_amplitude: 46
+  p_noiseScale: 40
+  p_octaves: 6
+  p_persistance: 0.37
+  p_lacunarity: 2.48
   p_curve:
     serializedVersion: 2
     m_Curve:
@@ -331,35 +352,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  levelShift: 0
-  heightlevels: 960000006e000000460000001e000000050000009cffffff
-  slopedThreshold: 0.3
-  colPlains:
-  - {r: 0.9622642, g: 0.9395693, b: 0.9395693, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.6698113, g: 0.034754362, b: 0.034754362, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.042573366, g: 0.5754717, b: 0.024430392, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.745283, g: 0.33689144, b: 0.10194911, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.8490566, g: 0.020024916, b: 0.7839347, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  colDesert:
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0, b: 0, a: 0}
+  useBiomes:
+  - biomeName: Plains
+    biomeID: 0
+    colors:
+    - {r: 1, g: 1, b: 1, a: 0}
+    heightlevels: 64000000
+    blendStrengths: 0
+    colorVariation: 0
   lod_6: 0
   lod_5: 0
   lod_4: 0
@@ -368,9 +368,6 @@ MonoBehaviour:
   lod_1: 0
   lod_disable: 0
   lod_delete: 0
-  detailLevel: 6
-  chunkCount: 1
-  yScrol: 0
   placeholderMat: {fileID: 2100000, guid: 6a55113c2c3a75049bc4ab5eb51643e9, type: 2}
 --- !u!4 &1171828860
 Transform:
