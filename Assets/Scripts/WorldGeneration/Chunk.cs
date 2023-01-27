@@ -73,7 +73,7 @@ public class Chunk
 
         meshFilter.mesh.colors = chunkInfo.colors;
         // Colider
-        if (currentDetailLevel == 6) { meshCollider.sharedMesh = meshFilter.sharedMesh; } else { meshCollider.sharedMesh = null; }
+        if (currentDetailLevel == 5) { meshCollider.sharedMesh = meshFilter.sharedMesh; } else { meshCollider.sharedMesh = null; }
             
                 
         

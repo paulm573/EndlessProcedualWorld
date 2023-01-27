@@ -7,7 +7,7 @@ using UnityEngine;
 public class ChunkBuilderSingelton : MonoBehaviour
 {
 
-    private const int maxCachedChunks = 200;
+    private const int maxCachedChunks = 240;
 
     public static ChunkBuilderSingelton Instance;
     Queue<MapThreadInfo<ChunkInfo>> mapDataThreadQueue = new Queue<MapThreadInfo<ChunkInfo>>();

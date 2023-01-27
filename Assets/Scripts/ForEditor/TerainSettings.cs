@@ -15,7 +15,7 @@ public class TerainSettings : MonoBehaviour
     [SerializeField] int yScrol;
 
     [Header("General")]
-    [SerializeField]                 public int seed;
+    [SerializeField] public int seed;
     [SerializeField]                 public Transform worldRoot;
     [SerializeField][Range(1, 20)]   public int chunkSize_;
     
@@ -62,8 +62,8 @@ public class TerainSettings : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-        seed = Random.Range(0, 123213);
+        seed = System.DateTime.Now.Millisecond;
+        Instance = this;   
     }
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
