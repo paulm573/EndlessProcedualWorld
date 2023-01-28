@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(TerainSettings))]
 public class LiveTerainEditor : Editor
@@ -8,11 +9,16 @@ public class LiveTerainEditor : Editor
     {
         TerainSettings generator = (TerainSettings)target;
 
-        if (DrawDefaultInspector())
-        {
-            generator.Generate();
-        };
 
+       
+        
+            if (GUILayout.Button("Generate")) 
+            { 
+                generator.Generate();
+            }
+
+
+        DrawDefaultInspector();
 
     }
 }

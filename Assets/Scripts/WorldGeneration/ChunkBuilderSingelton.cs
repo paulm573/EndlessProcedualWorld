@@ -2,16 +2,25 @@ using System.Collections.Generic;
 using System.Threading;
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class ChunkBuilderSingelton : MonoBehaviour
 {
+
+    private const int maxCachedChunks = 200;
+
     public static ChunkBuilderSingelton Instance;
     Queue<MapThreadInfo<ChunkInfo>> mapDataThreadQueue = new Queue<MapThreadInfo<ChunkInfo>>();
+    Dictionary<Vector2, float[,]> heightBuffer= new Dictionary<Vector2,float[,]>();
 
     private void Awake()
     {
         Instance = this;
+
+        //int a, b;
+        //ThreadPool.SetMaxThreads(3, 3);
+        //ThreadPool.GetAvailableThreads(out a, out b);
+        //Debug.Log($"a{a},b{b}");
     }
     private void Update()
     {   
@@ -26,8 +35,9 @@ public class ChunkBuilderSingelton : MonoBehaviour
 
     public void RequestChunkData(Action<ChunkInfo> callback, Vector2 position, int detailLevel)
     {
-        ThreadStart threadStart = delegate { ChunkBuilderDataThread(callback, position, detailLevel); };
-        new Thread(threadStart).Start();
+        //ThreadStart threadStart = delegate { ChunkBuilderDataThread(callback, position, detailLevel); };
+        //new Thread(threadStart).Start();
+        ThreadPool.QueueUserWorkItem(delegate { ChunkBuilderDataThread(callback, position, detailLevel); });
     }
 
     private void ChunkBuilderDataThread(Action<ChunkInfo> callback, Vector2 pos, int detailLevel)
@@ -38,14 +48,35 @@ public class ChunkBuilderSingelton : MonoBehaviour
     }
 
     private ChunkInfo GenerateChunk(int detailLevel,Vector2 position)
-    {
-        (Vector3[], int[]) mesh = CreateChunkMesh(detailLevel,position); 
-        return new ChunkInfo(mesh.Item1,mesh.Item2);
+    {   
+        (Vector3[], int[]) mesh = CreateChunkMesh(detailLevel,position);
+        int f = 0;
+        BiomeStruct biome = TerainSettings.Instance.useBiomes[f];
+        Color[] meshColors = MeshPainter.GenerateMeshColors(TerainSettings.Instance.seed,mesh.Item1,detailLevel, biome.heightlevels, biome.blendStrengths, biome.colors, biome.colorVariation);
+        return new ChunkInfo(mesh.Item1,mesh.Item2,meshColors);
     }
 
 
     private (Vector3[], int[]) CreateChunkMesh(int detailLevel, Vector2 position)
     {
+        string heightMapId = $"{position.y}_{position.x}";
+        bool access;
+        lock (heightBuffer)
+        {
+            access = heightBuffer.ContainsKey(position);
+            if (heightBuffer.Count >= maxCachedChunks)
+            {
+                heightBuffer.Clear();
+                Debug.Log(heightBuffer.Count);
+            }
+        }
+
+
+        if (access)
+        {
+            return MeshGenerator.GenerateMeshFromHeightMap(heightBuffer[position], detailLevel);
+        }
+
         int size = TerainSettings.Instance.chunkSize_ * 12 + 1;
 
         // Continetalness
@@ -71,10 +102,15 @@ public class ChunkBuilderSingelton : MonoBehaviour
                 if (!TerainSettings.Instance.e_on) { erosionMap[x, z] = 1f; }
                 if (!TerainSettings.Instance.p_on) { peaksAndValleys[x, z] = 1; }
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                heightMap[x, z] = ((peaksAndValleys[x, z] * continental[x, z]) * TerainSettings.Instance.c_amplitude) + erosionMap[x,z] * TerainSettings.Instance.e_amplitude;
+                //heightMap[x, z] = ((peaksAndValleys[x, z] * continental[x, z]) * TerainSettings.Instance.c_amplitude) + erosionMap[x,z] * TerainSettings.Instance.e_amplitude;
+                heightMap[x, z] = (TerainSettings.Instance.c_amplitude * continental[x,z] + peaksAndValleys[x,z] * TerainSettings.Instance.p_amplitude) * erosionMap[x, z] ;
             }
         }
-        
+
+        // cache heightMap
+        lock (heightBuffer) { heightBuffer.Add(position, heightMap); }
+
+
 
         return MeshGenerator.GenerateMeshFromHeightMap(heightMap, detailLevel);
     }

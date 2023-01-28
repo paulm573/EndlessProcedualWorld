@@ -28,7 +28,7 @@ public class WorldGenerator : MonoBehaviour
         currentChunk_X = Mathf.RoundToInt(viewerPosition.x );
 
         // Guard save unnecessary Updates
-        if(currentChunk_Z == old_Z && currentChunk_X== old_X) { Debug.Log("hi"); return; }
+        if(currentChunk_Z == old_Z && currentChunk_X== old_X)  return; 
 
         old_Z= currentChunk_Z;
         old_X= currentChunk_X;
@@ -59,7 +59,7 @@ public class WorldGenerator : MonoBehaviour
                 // Key already contained
                 if (detailLevel <= -2)
                 {
-                    chunkDictionary[currentChunkPos].SelfDestroy();   // Delete
+                    chunkDictionary[currentChunkPos].Destroy();   // Delete
                     chunkDictionary.Remove(currentChunkPos);
                 }
                 else if (detailLevel <= -1)

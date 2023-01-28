@@ -1,4 +1,6 @@
+
 using UnityEngine;
+
 
 public class Chunk
 {
@@ -6,19 +8,21 @@ public class Chunk
     private MeshRenderer meshRenderer;
     private GameObject chunk;
     private MeshFilter meshFilter;
+    private MeshCollider meshCollider;
   
     private Vector2 pos;
-    private Vector2 coordinates;
+    private bool isDead = false;
+  
  
     private int currentDetailLevel;
 
-    private bool alive;
+    
     public Chunk(Vector2 coordinates,int initialDetailLevel)
     {   
         currentDetailLevel= -100;
-        alive = true;
+     
 
-        this.coordinates = coordinates;
+       
         pos = coordinates * (TerainSettings.Instance.chunkSize_*12);
         // Offset so player is centered
         pos.x -= TerainSettings.Instance.chunkSize_ * 6;
@@ -28,6 +32,7 @@ public class Chunk
 
         meshRenderer = chunk.AddComponent<MeshRenderer>();
         meshFilter = chunk.AddComponent<MeshFilter>();
+        meshCollider = chunk.AddComponent<MeshCollider>();
 
         chunk.transform.parent = TerainSettings.Instance.worldRoot;
 
@@ -42,25 +47,39 @@ public class Chunk
     public void UpdateChunk(int desiredDetailLevel)
     {
         // check if chunk is already up to date
-        if (desiredDetailLevel == currentDetailLevel) { return; } 
+        if (desiredDetailLevel ==currentDetailLevel) { return; } 
 
         currentDetailLevel = desiredDetailLevel;
         ChunkBuilderSingelton.Instance.RequestChunkData(OnDataReceived, pos, desiredDetailLevel);
+       
 
     }
 
-    public void SelfDestroy()
+    public void Destroy()
     {
+        isDead = true;
         Object.Destroy(chunk.gameObject);
         Object.Destroy(chunk);
     }
 
     private void OnDataReceived(ChunkInfo chunkInfo)
     {
+        if(isDead) return;
+
         // UpdateMesh
+        meshFilter.mesh = new Mesh();
         meshFilter.mesh.vertices = chunkInfo.vertices;
         meshFilter.mesh.triangles = chunkInfo.triangles;
-        meshFilter.mesh.RecalculateNormals();
+
+        meshFilter.mesh.colors = chunkInfo.colors;
+        // Colider
+        if (currentDetailLevel == 6) { meshCollider.sharedMesh = meshFilter.sharedMesh; } else { meshCollider.sharedMesh = null; }
+            
+                
+        
+
+        //meshFilter.mesh.RecalculateNormals();
+        //meshFilter.mesh.RecalculateTangents();
      
     }
 
@@ -68,6 +87,8 @@ public class Chunk
     {
         chunk.SetActive(v);
     }
+
+
 }
 
 
@@ -75,10 +96,12 @@ public struct ChunkInfo
 {
     public readonly Vector3[] vertices;
     public readonly int[] triangles;
+    public readonly Color[] colors;
 
-    public ChunkInfo(Vector3[] verts, int[] tris)
+    public ChunkInfo(Vector3[] verts, int[] tris, Color[] colors)
     {
         this.vertices = verts;
         this.triangles = tris;
+        this.colors = colors;
     }
 }

@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/EndlessTerrainGeneration.unity
+    guid: a62d7d01e4103594183c358c070dfdfe
+  - enabled: 0
+    path: Assets/Scenes/EndlessTerrainGeneration 1.unity
+    guid: 4cd1b6de74742824eae076b2411c6353
   m_configObjects: {}
