@@ -11,7 +11,7 @@ public class ChunkBuilderSingelton : MonoBehaviour
 
     public static ChunkBuilderSingelton Instance;
     Queue<MapThreadInfo<ChunkInfo>> mapDataThreadQueue = new Queue<MapThreadInfo<ChunkInfo>>();
-    Dictionary<Vector2, float[,]> heightBuffer= new Dictionary<Vector2,float[,]>();
+    CachingDic<Vector2, float[,]> heightBuffer= new CachingDic<Vector2,float[,]>(maxCachedChunks);
 
     private void Awake()
     {
@@ -60,22 +60,17 @@ public class ChunkBuilderSingelton : MonoBehaviour
     private (Vector3[], int[]) CreateChunkMesh(int detailLevel, Vector2 position)
     {
         string heightMapId = $"{position.y}_{position.x}";
-        bool access;
+
         lock (heightBuffer)
         {
-            access = heightBuffer.ContainsKey(position);
-            if (heightBuffer.Count >= maxCachedChunks)
+            if (heightBuffer.ContainsKey(position))
             {
-                heightBuffer.Clear();
-                Debug.Log(heightBuffer.Count);
+                return MeshGenerator.GenerateMeshFromHeightMap(heightBuffer.Get(position), detailLevel);
             }
         }
 
 
-        if (access)
-        {
-            return MeshGenerator.GenerateMeshFromHeightMap(heightBuffer[position], detailLevel);
-        }
+
 
         int size = TerainSettings.Instance.chunkSize_ * 12 + 1;
 
@@ -108,7 +103,7 @@ public class ChunkBuilderSingelton : MonoBehaviour
         }
 
         // cache heightMap
-        lock (heightBuffer) { heightBuffer.Add(position, heightMap); }
+        lock (heightBuffer) { heightBuffer.Cache(position, heightMap); }
 
 
 
